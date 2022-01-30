@@ -2,31 +2,26 @@ using UnityEngine;
 
 public class PlayerPaddle : Paddle
 {
-    private Vector2 _direction;
+    private Vector2 direction;
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
-            _direction = Vector2.up;
-        }
-
-        else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+            direction = Vector2.up;
+        } else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
-            _direction = Vector2.down;
-        }
-
-        else
+            direction = Vector2.down;
+        } else
         {
-            _direction = Vector2.zero;
+            direction = Vector2.zero;
         }
     }
-
     private void FixedUpdate()
     {
-        if (_direction.sqrMagnitude != 0)
+        if (direction.sqrMagnitude != 0)
         {
-            _rigidbody.AddForce(_direction * speed);
+            rb2D.AddForce(direction * speed);
         }
     }
 }

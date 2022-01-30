@@ -1,23 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public Ball ball;
-    private int _playerScore;
-    private int _computerScore;
+    [SerializeField] Paddle playerPaddle;
+    [SerializeField] Paddle computerPaddle;
+    [SerializeField] Text playerScoreText;
+    [SerializeField] Text computerScoreText;
+    [SerializeField] Ball ball;
+
+    private int playerScore;
+    private int computerScore;
 
     public void PlayerScores()
     {
-        _playerScore++;
-
-        this.ball.ResetPosition();
+        playerScore++;
+        playerScoreText.text = playerScore.ToString();
+        ResetRound();
     }
+
     public void ComputerScores()
     {
-        _computerScore++;
-
-        this.ball.ResetPosition();
+        computerScore++;
+        computerScoreText.text = computerScore.ToString();
+        ResetRound();
     }
+
+    private void ResetRound()
+    {
+        ball.ResetTheBallPosition();
+        ball.AddStartingForce();
+        playerPaddle.ResetPosition();
+        computerPaddle.ResetPosition();
+    }
+
 }

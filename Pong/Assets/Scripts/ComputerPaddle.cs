@@ -1,35 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ComputerPaddle : Paddle
 {
-    public Rigidbody2D ball;
+    [SerializeField] Rigidbody2D ball;
+    private Vector2 direction;
+
+    private void Update()
+    {
+        if (ball.velocity.x > 0)
+        {
+            if (ball.position.y > transform.position.y)
+            {
+                direction = Vector2.up;
+            } else
+            {
+                direction = Vector2.down;
+            }
+        } else
+        {
+            if (transform.position.y > 0)
+            {
+                direction = Vector2.down;
+            } else
+            {
+                direction = Vector2.up;
+            }
+        }
+    }
 
     private void FixedUpdate()
     {
-        if (this.ball.velocity.x > 0.0f)
-        {
-            if (this.ball.position.y > this.transform.position.y)
-            {
-                _rigidbody.AddForce(Vector2.up * speed);
-            }
-
-            else if (this.ball.position.y < this.transform.position.y)
-            {
-                _rigidbody.AddForce(Vector2.down * speed);
-            }
-        }
-        else
-        {
-            if (this.transform.position.y > 0.0f)
-            {
-                _rigidbody.AddForce(Vector2.down * speed);
-            }
-            else if (this.transform.position.y < 0.0f)
-            {
-                _rigidbody.AddForce(Vector2.up * speed);
-            }
-        }
+        rb2D.AddForce(direction * speed);
     }
 }
